@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import { SUBJECT_COLORS } from "../data/data.js";
 import { ControlBtn, SuggestionCard } from "../components/components.jsx";
 
-export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVideos, savedVideos = [], onToggleSave }) {
+export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVideos, savedVideos = [], onToggleSave, onWatched }) {
   const videoRef = useRef(null);
   const controlsTimeout = useRef(null);
+  const playedSeconds = useRef(0);
 
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -38,25 +39,35 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
     return () => clearTimeout(t);
   }, [video.id]);
 
-  // Auto-play when video changes
+  // Auto-play when video changes; reset play-time counter
   useEffect(() => {
+    playedSeconds.current = 0;
     const vid = videoRef.current;
     if (!vid) return;
     vid.load();
     vid.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
   }, [video.id]);
 
+  // Accumulate seconds while playing
+  useEffect(() => {
+    if (!playing) return;
+    const interval = setInterval(() => { playedSeconds.current += 1; }, 1000);
+    return () => clearInterval(interval);
+  }, [playing]);
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKey = (e) => {
       if (e.code === "Space")      { e.preventDefault(); togglePlay(); }
-      if (e.code === "Escape")     onBack();
-      if (e.code === "ArrowRight") onNext();
-      if (e.code === "ArrowLeft")  onPrev();
+      if (e.code === "Escape")     reportAndGo(onBack);
+      if (e.code === "ArrowRight") reportAndGo(onNext);
+      if (e.code === "ArrowLeft")  reportAndGo(onPrev);
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [playing]);
+
+  const reportAndGo = (fn) => { onWatched?.(video.id, playedSeconds.current); playedSeconds.current = 0; fn(); };
 
   const resetControlsTimer = () => {
     setShowControls(true);
@@ -152,7 +163,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", background: "#000" }}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={() => setDuration(videoRef.current?.duration || 0)}
-        onEnded={() => { setPlaying(false); onNext(); }}
+        onEnded={() => { setPlaying(false); reportAndGo(onNext); }}
         onClick={togglePlay}
         playsInline
       />
@@ -171,7 +182,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
         pointerEvents: showControls ? "auto" : "none",
       }}>
         <button
-          onClick={onBack}
+          onClick={() => reportAndGo(onBack)}
           style={{
             background: "rgba(255,255,255,0.12)", border: "none", color: "#fff",
             cursor: "pointer", width: 40, height: 40, borderRadius: "50%",
@@ -239,7 +250,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
 
         {/* Controls row */}
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <ControlBtn onClick={onPrev} title="Previous (←)">
+          <ControlBtn onClick={() => reportAndGo(onPrev)} title="Previous (←)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
           </ControlBtn>
 
@@ -260,7 +271,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
             }
           </button>
 
-          <ControlBtn onClick={onNext} title="Next (→)">
+          <ControlBtn onClick={() => reportAndGo(onNext)} title="Next (→)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8l-5.5 4zM16 6v12h2V6h-2z"/></svg>
           </ControlBtn>
 
