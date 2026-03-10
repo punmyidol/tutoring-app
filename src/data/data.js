@@ -1,0 +1,32 @@
+export const SUBJECT_COLORS = {
+    Math: { bg: "#1a2fff", light: "#e8ebff", emoji: "∑" },
+    Science: { bg: "#ff6b1a", light: "#fff0e8", emoji: "⚗" },
+    Physics: { bg: "#b8860b", light: "#fff8e1", emoji: "⚛️" },
+    History: { bg: "#b8860b", light: "#fff8e1", emoji: "⏳" },
+    Coding: { bg: "#00c896", light: "#e0fff5", emoji: "</>" },
+    Languages: { bg: "#e91e8c", light: "#ffe0f3", emoji: "Aa" },
+    "Art & Music": { bg: "#9b27af", light: "#f3e0ff", emoji: "♪" },
+    Philosophy: { bg: "#546e7a", light: "#eceff1", emoji: "∞" },
+    Economics: { bg: "#2e7d32", light: "#e8f5e9", emoji: "$" },
+  };
+  
+  export const VIDEOS = [
+    { id: 1,  title: "The Beauty of Calculus",        creator: "3Blue1Brown",     subject: "Math",       duration: "3:21",  views: "2.1M", youtubeId: "WUvTyaaNkzM", desc: "A visual exploration of calculus fundamentals." },
+    { id: 2,  title: "How DNA Works",                 creator: "Kurzgesagt",      subject: "Science",    duration: "4:10",  views: "8.4M", youtubeId: "zwibgNGe4aY", desc: "The molecular machinery behind all life." },
+    { id: 3,  title: "The Fall of Rome Explained",    creator: "OverSimplified",  subject: "History",    duration: "5:45",  views: "12M",  youtubeId: "NG6_jQCGv5c", desc: "Why did the greatest empire collapse?" },
+    { id: 4,  title: "Python in 100 Seconds",         creator: "Fireship",        subject: "Coding",     duration: "1:40",  views: "3.7M", youtubeId: "x7X9w_GIm1s", desc: "Everything you need to know about Python, fast." },
+    { id: 5,  title: "How Languages Evolve",          creator: "TED-Ed",          subject: "Languages",  duration: "4:28",  views: "5.2M", youtubeId: "iWDKsHm6gTA", desc: "The fascinating journey of human language over time." },
+    { id: 6,  title: "Music Theory in 16 Minutes",    creator: "Signals Music",   subject: "Art & Music",duration: "16:01", views: "1.9M", youtubeId: "rgaTLrZGlk0", desc: "Understand the building blocks of all music." },
+    { id: 7,  title: "Plato's Allegory of the Cave",  creator: "TED-Ed",          subject: "Philosophy", duration: "4:32",  views: "14M",  youtubeId: "1RWOpQXTltA", desc: "One of philosophy's most famous thought experiments." },
+    { id: 8,  title: "Supply & Demand Explained",     creator: "EconplusDal",     subject: "Economics",  duration: "6:13",  views: "890K", youtubeId: "g9aDizJpd0s", desc: "The core concept driving every market on Earth." },
+    { id: 9,  title: "The Riemann Hypothesis",        creator: "Veritasium",      subject: "Math",       duration: "7:50",  views: "6.3M", youtubeId: "zlm1aajH6gY", desc: "The million-dollar unsolved math problem." },
+    { id: 10, title: "Black Holes Explained",         creator: "Kurzgesagt",      subject: "Science",    duration: "5:55",  views: "22M",  youtubeId: "e-P5IFTqB98", desc: "From birth to death of the universe's strangest objects." },
+    { id: 11, title: "World War I in a Nutshell",     creator: "OverSimplified",  subject: "History",    duration: "6:02",  views: "18M",  youtubeId: "Mun1dKkc_As", desc: "How one assassination sparked a global war." },
+    { id: 12, title: "CSS Grid in 20 Minutes",        creator: "Traversy Media",  subject: "Coding",     duration: "20:00", views: "1.1M", youtubeId: "jV8B24rSN5o", desc: "Master the most powerful CSS layout system." },
+    { id: 13, title: "How to Learn Any Language",     creator: "Xiaoma",          subject: "Languages",  duration: "8:14",  views: "3.4M", youtubeId: "illApgaLgGA", desc: "Science-backed strategies for language acquisition." },
+    { id: 14, title: "The History of Jazz",           creator: "PBS",             subject: "Art & Music",duration: "9:20",  views: "780K", youtubeId: "O-dNDTsHKLI", desc: "America's greatest contribution to world music." },
+    { id: 15, title: "Nietzsche's Philosophy",        creator: "Academy of Ideas",subject: "Philosophy", duration: "12:10", views: "2.2M", youtubeId: "wHWbZmg2hzU", desc: "God is dead, and we have killed him. What now?" },
+    { id: 16, title: "How Inflation Works",           creator: "EconplusDal",     subject: "Economics",  duration: "5:30",  views: "1.5M", youtubeId: "PNp-khAJFRE", desc: "Why your money buys less every year." },
+    { id: 17, title: "Linear Algebra Visualized",     creator: "3Blue1Brown",     subject: "Math",       duration: "14:59", views: "4.1M", youtubeId: "kjBOesZCoqc", desc: "See matrix transformations like never before." },
+    { id: 18, title: "The Immune System Explained",   creator: "Kurzgesagt",      subject: "Science",    duration: "6:44",  views: "16M",  youtubeId: "zQGOcOUBi6s", desc: "Your body's microscopic defense force." },
+  ];
