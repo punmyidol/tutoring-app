@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { SUBJECT_COLORS } from "../data/data.js";
 import { ControlBtn, SuggestionCard } from "../components/components.jsx";
 
-export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVideos }) {
+export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVideos, savedVideos = [], onToggleSave }) {
   const videoRef = useRef(null);
   const controlsTimeout = useRef(null);
 
@@ -14,6 +14,15 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
   const [currentTime, setCurrentTime] = useState(0);
   const [showControls, setShowControls] = useState(true);
   const [entered, setEntered] = useState(false);
+
+  // Per-video vote: null | "up" | "down"
+  const [votes, setVotes] = useState({});
+  const vote = votes[video.id] ?? null;
+  const isSaved = savedVideos.includes(video.id);
+
+  const handleVote = (dir) => {
+    setVotes(prev => ({ ...prev, [video.id]: prev[video.id] === dir ? null : dir }));
+  };
 
   const col = SUBJECT_COLORS[video.subject];
   const videoSrc = `./assets/${video.youtubeId}.mp4`;
@@ -278,6 +287,98 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
 
           <span style={{ fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
             ESC to go back · ←→ to navigate
+          </span>
+        </div>
+      </div>
+
+      {/* ── Action buttons (upvote / downvote / save) ── */}
+      <div style={{
+        position: "absolute", left: 20, top: "50%", transform: "translateY(-50%)",
+        display: "flex", flexDirection: "column", alignItems: "center", gap: 16,
+        opacity: showControls ? 1 : 0, transition: "opacity 0.3s",
+        pointerEvents: showControls ? "auto" : "none",
+      }}>
+        {/* Upvote */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+          <button
+            onClick={(e) => { e.stopPropagation(); handleVote("up"); }}
+            title="Upvote"
+            style={{
+              width: 44, height: 44, borderRadius: "50%", border: "none", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              background: vote === "up" ? "#4ade80" : "rgba(255,255,255,0.12)",
+              backdropFilter: "blur(8px)",
+              color: vote === "up" ? "#000" : "#fff",
+              transition: "all 0.2s cubic-bezier(.22,.68,0,1.4)",
+              transform: vote === "up" ? "scale(1.15)" : "scale(1)",
+              boxShadow: vote === "up" ? "0 0 16px rgba(74,222,128,0.5)" : "none",
+            }}
+            onMouseEnter={e => { if (vote !== "up") e.currentTarget.style.background = "rgba(74,222,128,0.25)"; }}
+            onMouseLeave={e => { if (vote !== "up") e.currentTarget.style.background = "rgba(255,255,255,0.12)"; }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+            </svg>
+          </button>
+          <span style={{ fontSize: 10, color: vote === "up" ? "#4ade80" : "rgba(255,255,255,0.4)", fontWeight: 600, transition: "color 0.2s" }}>
+            Like
+          </span>
+        </div>
+
+        {/* Downvote */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+          <button
+            onClick={(e) => { e.stopPropagation(); handleVote("down"); }}
+            title="Downvote"
+            style={{
+              width: 44, height: 44, borderRadius: "50%", border: "none", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              background: vote === "down" ? "#f87171" : "rgba(255,255,255,0.12)",
+              backdropFilter: "blur(8px)",
+              color: vote === "down" ? "#000" : "#fff",
+              transition: "all 0.2s cubic-bezier(.22,.68,0,1.4)",
+              transform: vote === "down" ? "scale(1.15)" : "scale(1)",
+              boxShadow: vote === "down" ? "0 0 16px rgba(248,113,113,0.5)" : "none",
+            }}
+            onMouseEnter={e => { if (vote !== "down") e.currentTarget.style.background = "rgba(248,113,113,0.25)"; }}
+            onMouseLeave={e => { if (vote !== "down") e.currentTarget.style.background = "rgba(255,255,255,0.12)"; }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
+            </svg>
+          </button>
+          <span style={{ fontSize: 10, color: vote === "down" ? "#f87171" : "rgba(255,255,255,0.4)", fontWeight: 600, transition: "color 0.2s" }}>
+            Dislike
+          </span>
+        </div>
+
+        {/* Divider */}
+        <div style={{ width: 1, height: 20, background: "rgba(255,255,255,0.15)", borderRadius: 1 }} />
+
+        {/* Save */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+          <button
+            onClick={(e) => { e.stopPropagation(); onToggleSave?.(video.id); }}
+            title={isSaved ? "Remove from saved" : "Save video"}
+            style={{
+              width: 44, height: 44, borderRadius: "50%", border: "none", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              background: isSaved ? "#facc15" : "rgba(255,255,255,0.12)",
+              backdropFilter: "blur(8px)",
+              color: isSaved ? "#000" : "#fff",
+              transition: "all 0.2s cubic-bezier(.22,.68,0,1.4)",
+              transform: isSaved ? "scale(1.15)" : "scale(1)",
+              boxShadow: isSaved ? "0 0 16px rgba(250,204,21,0.5)" : "none",
+            }}
+            onMouseEnter={e => { if (!isSaved) e.currentTarget.style.background = "rgba(250,204,21,0.25)"; }}
+            onMouseLeave={e => { if (!isSaved) e.currentTarget.style.background = "rgba(255,255,255,0.12)"; }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+            </svg>
+          </button>
+          <span style={{ fontSize: 10, color: isSaved ? "#facc15" : "rgba(255,255,255,0.4)", fontWeight: 600, transition: "color 0.2s" }}>
+            {isSaved ? "Saved" : "Save"}
           </span>
         </div>
       </div>
