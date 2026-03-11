@@ -59,7 +59,7 @@ export function VideoCard({ video, col, onClick, saved, vote, onToggleSave, onVo
     <div className="card" onClick={onClick}>
       <div className="thumb-wrap">
         <img
-          src={`https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`}
+          src={video.thumbnail || `https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`}
           alt={video.title}
           loading="lazy"
         />

@@ -9,17 +9,24 @@ export default function App() {
   const [savedIds, setSavedIds] = useState<Set<number>>(new Set());
   const [votes, setVotes] = useState<Record<number, 'up' | 'down' | null>>({});
   const [watchHistory, setWatchHistory] = useState<Array<{ videoId: number; secondsWatched: number; watchedAt: number }>>([]);
+  const [uploadedVideos, setUploadedVideos] = useState<any[]>([]);
+
+  const allVideos = [...VIDEOS, ...uploadedVideos];
+
+  const handleAddVideo = (video: any) => {
+    setUploadedVideos(prev => [video, ...prev]);
+  };
 
   const handleNext = () => {
     if (!playingVideo) return;
-    const idx = VIDEOS.findIndex(v => v.id === playingVideo.id);
-    setPlayingVideo(VIDEOS[(idx + 1) % VIDEOS.length]);
+    const idx = allVideos.findIndex(v => v.id === playingVideo.id);
+    setPlayingVideo(allVideos[(idx + 1) % allVideos.length]);
   };
 
   const handlePrev = () => {
     if (!playingVideo) return;
-    const idx = VIDEOS.findIndex(v => v.id === playingVideo.id);
-    setPlayingVideo(VIDEOS[(idx - 1 + VIDEOS.length) % VIDEOS.length]);
+    const idx = allVideos.findIndex(v => v.id === playingVideo.id);
+    setPlayingVideo(allVideos[(idx - 1 + allVideos.length) % allVideos.length]);
   };
 
   const handleToggleSave = (id: number) => {
@@ -54,11 +61,13 @@ export default function App() {
         onToggleSave={handleToggleSave}
         onVote={handleVote}
         watchHistory={watchHistory}
+        uploadedVideos={uploadedVideos}
+        onAddVideo={handleAddVideo}
       />
       {playingVideo && (
         <VideoPlayerPage
           video={playingVideo}
-          allVideos={VIDEOS}
+          allVideos={allVideos}
           onBack={() => setPlayingVideo(null)}
           onNext={handleNext}
           onPrev={handlePrev}

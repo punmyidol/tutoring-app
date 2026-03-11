@@ -3,11 +3,12 @@ import { SUBJECT_COLORS, VIDEOS } from "../data/data.js";
 import { VideoCard } from "../components/components.jsx";
 import ProgressPage from "./Progress.jsx";
 import SavedPage from "./Saved.jsx";
+import CreatorPage from "./Creator.jsx";
 
-export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, savedIds, votes, onToggleSave, onVote, watchHistory }) {
+export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, savedIds, votes, onToggleSave, onVote, watchHistory, uploadedVideos, onAddVideo }) {
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState("All");
-  const [view, setView] = useState("discover"); // "discover" | "saved" | "progress"
+  const [view, setView] = useState("discover"); // "discover" | "saved" | "progress" | "creator"
 
   const tags = ["All", ...Object.keys(SUBJECT_COLORS)];
 
@@ -220,6 +221,19 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
               onClick={() => setView("progress")}
               style={{ color: view === "progress" ? "var(--text)" : "var(--text-muted)", fontWeight: view === "progress" ? 500 : 400 }}
             >Progress</span>
+            <span
+              className="nav-link"
+              onClick={() => setView("creator")}
+              style={{ color: view === "creator" ? "#4a7bff" : "var(--text-muted)", fontWeight: view === "creator" ? 600 : 400, display: "inline-flex", alignItems: "center", gap: 5 }}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              Creator
+              {uploadedVideos?.length > 0 && (
+                <span style={{ background: "#4a7bff", color: "#fff", fontSize: 10, fontWeight: 700, padding: "1px 6px", borderRadius: 99, lineHeight: 1.6 }}>
+                  {uploadedVideos.length}
+                </span>
+              )}
+            </span>
           </nav>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <button className="theme-btn" onClick={onToggleTheme}>
@@ -242,6 +256,14 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
       <main style={{ padding: "0" }}>
 
         {view === "progress" && <ProgressPage watchHistory={watchHistory} />}
+
+        {view === "creator" && (
+          <CreatorPage
+            uploadedVideos={uploadedVideos ?? []}
+            onAddVideo={onAddVideo}
+            onSelectVideo={onSelectVideo}
+          />
+        )}
 
         {view === "saved" && (
           <SavedPage
