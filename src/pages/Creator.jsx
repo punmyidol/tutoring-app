@@ -38,7 +38,7 @@ export default function CreatorPage({ uploadedVideos, onAddVideo, onSelectVideo 
     if (!file || !file.type.startsWith("video/")) return;
     setProcessing(true);
     const result = await generateThumbnail(file);
-    setPending(result);
+    setPending({ ...result, file }); // keep raw File for IndexedDB persistence
     setForm(f => ({ ...f, title: file.name.replace(/\.[^.]+$/, "").replace(/[-_]/g, " ") }));
     setProcessing(false);
   };
@@ -51,7 +51,7 @@ export default function CreatorPage({ uploadedVideos, onAddVideo, onSelectVideo 
 
   const handlePost = () => {
     if (!pending || !form.title.trim()) return;
-    onAddVideo({
+    const metadata = {
       id: `upload_${Date.now()}`,
       title: form.title.trim(),
       creator: form.creator.trim() || "You",
@@ -59,11 +59,12 @@ export default function CreatorPage({ uploadedVideos, onAddVideo, onSelectVideo 
       duration: fmt(pending.duration || 0),
       views: "0",
       youtubeId: null,
-      localSrc: pending.src,
       thumbnail: pending.thumbnail,
       desc: form.desc.trim() || "User uploaded video.",
       isUserVideo: true,
-    });
+    };
+    // Pass both the metadata and the raw File blob so App can persist to IndexedDB
+    onAddVideo(metadata, pending.file);
     setPending(null);
     setForm({ title: "", desc: "", subject: "Coding", creator: "You" });
   };
