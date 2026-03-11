@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { VIDEOS } from "./data/data.js";
+import { saveVideo, loadAllVideos } from "./data/videoDB.js";
 import DiscoverPage from "./pages/Discover.jsx";
 import VideoPlayerPage from "./pages/VideoPlayer.jsx";
 
@@ -13,8 +14,18 @@ export default function App() {
 
   const allVideos = [...VIDEOS, ...uploadedVideos];
 
-  const handleAddVideo = (video: any) => {
+  // Restore persisted videos from IndexedDB on first load
+  useEffect(() => {
+    loadAllVideos().then(videos => {
+      if (videos.length > 0) setUploadedVideos(videos);
+    }).catch(() => {/* IndexedDB unavailable — silently skip */});
+  }, []);
+
+  const handleAddVideo = (metadata: any, blob: Blob) => {
+    const localSrc = URL.createObjectURL(blob);
+    const video = { ...metadata, localSrc };
     setUploadedVideos(prev => [video, ...prev]);
+    saveVideo(metadata.id, blob, metadata).catch(() => {/* silently skip if storage fails */});
   };
 
   const handleNext = () => {
