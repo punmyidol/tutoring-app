@@ -185,7 +185,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
           onClick={() => reportAndGo(onBack)}
           style={{
             background: "rgba(255,255,255,0.12)", border: "none", color: "#fff",
-            cursor: "pointer", width: 40, height: 40, borderRadius: "50%",
+            cursor: "pointer", width: 48, height: 48, borderRadius: "50%",
             display: "flex", alignItems: "center", justifyContent: "center",
             backdropFilter: "blur(8px)", fontSize: 18, transition: "background 0.2s",
           }}
@@ -251,14 +251,14 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
         {/* Controls row */}
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <ControlBtn onClick={() => reportAndGo(onPrev)} title="Previous (←)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
           </ControlBtn>
 
           <button
             onClick={togglePlay}
             style={{
               background: "#fff", border: "none", cursor: "pointer",
-              width: 48, height: 48, borderRadius: "50%",
+              width: 60, height: 60, borderRadius: "50%",
               display: "flex", alignItems: "center", justifyContent: "center",
               color: "#000", transition: "transform 0.15s", flexShrink: 0,
             }}
@@ -266,20 +266,20 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
             onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
           >
             {playing
-              ? <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-              : <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ marginLeft: 2 }}><path d="M8 5v14l11-7z"/></svg>
+              ? <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              : <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" style={{ marginLeft: 3 }}><path d="M8 5v14l11-7z"/></svg>
             }
           </button>
 
           <ControlBtn onClick={() => reportAndGo(onNext)} title="Next (→)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8l-5.5 4zM16 6v12h2V6h-2z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8l-5.5 4zM16 6v12h2V6h-2z"/></svg>
           </ControlBtn>
 
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <ControlBtn onClick={toggleMute} title="Mute">
               {muted || volume === 0
-                ? <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
-                : <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
+                : <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
               }
             </ControlBtn>
             <input
@@ -315,7 +315,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
             onClick={(e) => { e.stopPropagation(); handleVote("up"); }}
             title="Upvote"
             style={{
-              width: 44, height: 44, borderRadius: "50%", border: "none", cursor: "pointer",
+              width: 56, height: 56, borderRadius: "50%", border: "none", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
               background: vote === "up" ? "#4ade80" : "rgba(255,255,255,0.12)",
               backdropFilter: "blur(8px)",
@@ -327,7 +327,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
             onMouseEnter={e => { if (vote !== "up") e.currentTarget.style.background = "rgba(74,222,128,0.25)"; }}
             onMouseLeave={e => { if (vote !== "up") e.currentTarget.style.background = "rgba(255,255,255,0.12)"; }}
           >
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
               <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
             </svg>
           </button>
@@ -342,7 +342,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
             onClick={(e) => { e.stopPropagation(); handleVote("down"); }}
             title="Downvote"
             style={{
-              width: 44, height: 44, borderRadius: "50%", border: "none", cursor: "pointer",
+              width: 56, height: 56, borderRadius: "50%", border: "none", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
               background: vote === "down" ? "#f87171" : "rgba(255,255,255,0.12)",
               backdropFilter: "blur(8px)",
@@ -354,7 +354,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
             onMouseEnter={e => { if (vote !== "down") e.currentTarget.style.background = "rgba(248,113,113,0.25)"; }}
             onMouseLeave={e => { if (vote !== "down") e.currentTarget.style.background = "rgba(255,255,255,0.12)"; }}
           >
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
               <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
             </svg>
           </button>
@@ -372,7 +372,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
             onClick={(e) => { e.stopPropagation(); onToggleSave?.(video.id); }}
             title={isSaved ? "Remove from saved" : "Save video"}
             style={{
-              width: 44, height: 44, borderRadius: "50%", border: "none", cursor: "pointer",
+              width: 56, height: 56, borderRadius: "50%", border: "none", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
               background: isSaved ? "#facc15" : "rgba(255,255,255,0.12)",
               backdropFilter: "blur(8px)",
@@ -384,7 +384,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
             onMouseEnter={e => { if (!isSaved) e.currentTarget.style.background = "rgba(250,204,21,0.25)"; }}
             onMouseLeave={e => { if (!isSaved) e.currentTarget.style.background = "rgba(255,255,255,0.12)"; }}
           >
-            <svg width="26" height="26" viewBox="0 0 24 24" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
             </svg>
           </button>
