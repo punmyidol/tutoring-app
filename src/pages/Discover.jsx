@@ -12,8 +12,10 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
 
   const tags = ["All", ...Object.keys(SUBJECT_COLORS)];
 
+  const allVideos = useMemo(() => [...(uploadedVideos ?? []), ...VIDEOS], [uploadedVideos]);
+
   const filtered = useMemo(() => {
-    return VIDEOS.filter((v) => {
+    return allVideos.filter((v) => {
       const matchesTag = activeTag === "All" || v.subject === activeTag;
       const q = search.toLowerCase();
       const matchesSearch =
@@ -24,7 +26,7 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
         v.desc.toLowerCase().includes(q);
       return matchesTag && matchesSearch;
     });
-  }, [search, activeTag]);
+  }, [allVideos, search, activeTag]);
 
   return (
     <div data-theme={theme} style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "'DM Sans', sans-serif", color: "var(--text)" }}>
@@ -282,7 +284,7 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
             Learn anything,<br /><span style={{ color: "#4a7bff" }}>one scroll</span> at a time.
           </h1>
           <p style={{ color: "var(--text-muted)", fontSize: 15 }}>
-            {`${VIDEOS.length} curated lessons across ${Object.keys(SUBJECT_COLORS).length} subjects`}
+            {`${allVideos.length} lesson${allVideos.length !== 1 ? "s" : ""} across ${Object.keys(SUBJECT_COLORS).length} subjects`}
           </p>
         </div>
 
