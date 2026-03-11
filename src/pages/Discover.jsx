@@ -157,10 +157,11 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
           cursor: pointer; border-radius: 99px;
           display: inline-flex; align-items: center; justify-content: center;
           transition: background 0.15s, transform 0.1s;
-          padding: 4px 8px; gap: 3px;
-          font-size: 11px; font-weight: 600;
+          padding: 8px 12px; gap: 5px;
+          font-size: 13px; font-weight: 600;
           color: var(--text-dim);
           font-family: inherit;
+          min-height: 36px;
         }
         .action-btn:hover { background: var(--action-btn-hover); transform: scale(1.06); }
         .action-btn.active-up   { color: #4a7bff; border-color: rgba(74,123,255,0.3); background: rgba(74,123,255,0.1); }
