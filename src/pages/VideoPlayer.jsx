@@ -26,7 +26,7 @@ export default function VideoPlayerPage({ video, onBack, onNext, onPrev, allVide
   };
 
   const col = SUBJECT_COLORS[video.subject];
-  const videoSrc = `./assets/${video.youtubeId}.mp4`;
+  const videoSrc = video.localSrc || `./assets/${video.youtubeId}.mp4`;
 
   const suggestions = allVideos
     .filter(v => v.id !== video.id && v.subject === video.subject)
