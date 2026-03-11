@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yt-dlp --version 2>/dev/null || echo \"not found\")",
+      "Bash(python --version 2>/dev/null || python3 --version 2>/dev/null || echo \"no python\"; pip --version 2>/dev/null || echo \"no pip\"; winget --version 2>/dev/null || echo \"no winget\")",
+      "Bash(ffmpeg -version 2>/dev/null | head -1 || echo \"no ffmpeg\")",
+      "Bash(where ffmpeg:*)",
+      "Bash(pip install:*)",
+      "Bash(\"/c/Users/HP/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts/yt-dlp.exe\" --version)",
+      "Bash(YTDLP=\"/c/Users/HP/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts/yt-dlp.exe\" OUTDIR=\"E:/ProgrammingProjects/tutoring-app/public/assets\" __NEW_LINE_4521f2320fe501ab__ \"$YTDLP\" -f \"best[ext=mp4]\" -o \"$OUTDIR/%\\(id\\)s.mp4\" \"https://www.youtube.com/watch?v=HkdAHXoRtos\")",
+      "Bash(YTDLP=\"/c/Users/HP/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts/yt-dlp.exe\"\nOUTDIR=\"E:/ProgrammingProjects/tutoring-app/public/assets\"\n\"$YTDLP\" -f \"best[ext=mp4]\" -o \"$OUTDIR/%\\(id\\)s.mp4\" \"https://www.youtube.com/watch?v=HkdAHXoRtos\" 2>&1 | tail -8)",
+      "Bash(\"/c/Users/HP/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts/yt-dlp.exe\" -f \"best[ext=mp4]\" -o \"E:/ProgrammingProjects/tutoring-app/public/assets/%\\(id\\)s.mp4\" \"https://www.youtube.com/watch?v=HkdAHXoRtos\" 2>&1 | tail -5)",
+      "Bash(\"/c/Users/HP/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts/yt-dlp.exe\" -f \"best[ext=mp4]\" -o \"E:/ProgrammingProjects/tutoring-app/public/assets/%\\(id\\)s.mp4\" \"https://www.youtube.com/watch?v=zQZmevJ6W5o\" 2>&1 | tail -3)",
+      "Bash(\"/c/Users/HP/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts/yt-dlp.exe\" -f \"best[ext=mp4]\" -o \"E:/ProgrammingProjects/tutoring-app/public/assets/%\\(id\\)s.mp4\" \"https://www.youtube.com/watch?v=Gjnup-PuquQ\" 2>&1 | tail -3)",
+      "Bash(\"/c/Users/HP/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts/yt-dlp.exe\" -f \"best[ext=mp4]\" -o \"E:/ProgrammingProjects/tutoring-app/public/assets/%\\(id\\)s.mp4\" \"https://www.youtube.com/watch?v=rrB13utjYV4\" 2>&1 | tail -3)",
+      "Bash(\"/c/Users/HP/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts/yt-dlp.exe\" -f \"best[ext=mp4]\" -o \"E:/ProgrammingProjects/tutoring-app/public/assets/%\\(id\\)s.mp4\" \"https://www.youtube.com/watch?v=ENrzD9HAZK4\" 2>&1 | tail -3)"
+    ]
+  }
+}

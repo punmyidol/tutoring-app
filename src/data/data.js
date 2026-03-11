@@ -29,4 +29,10 @@ export const SUBJECT_COLORS = {
     { id: 16, title: "How Inflation Works",           creator: "EconplusDal",     subject: "Economics",  duration: "5:30",  views: "1.5M", youtubeId: "PNp-khAJFRE", desc: "Why your money buys less every year." },
     { id: 17, title: "Linear Algebra Visualized",     creator: "3Blue1Brown",     subject: "Math",       duration: "14:59", views: "4.1M", youtubeId: "kjBOesZCoqc", desc: "See matrix transformations like never before." },
     { id: 18, title: "The Immune System Explained",   creator: "Kurzgesagt",      subject: "Science",    duration: "6:44",  views: "16M",  youtubeId: "zQGOcOUBi6s", desc: "Your body's microscopic defense force." },
+    { id: 19, title: "JavaScript in 100 Seconds",     creator: "Fireship",        subject: "Coding",     duration: "1:40",  views: "4.2M", youtubeId: "DHjqpvDnNGE", desc: "The language of the web explained in 100 seconds." },
+    { id: 20, title: "React in 100 Seconds",          creator: "Fireship",        subject: "Coding",     duration: "1:44",  views: "2.8M", youtubeId: "Tn6-PIqc4UM", desc: "Facebook's UI library that changed the web." },
+    { id: 21, title: "Git in 100 Seconds",            creator: "Fireship",        subject: "Coding",     duration: "1:43",  views: "3.1M", youtubeId: "HkdAHXoRtos", desc: "The version control system every developer needs." },
+    { id: 22, title: "Docker in 100 Seconds",         creator: "Fireship",        subject: "Coding",     duration: "1:51",  views: "2.4M", youtubeId: "Gjnup-PuquQ", desc: "Containerize your apps and ship them anywhere." },
+    { id: 23, title: "Linux in 100 Seconds",          creator: "Fireship",        subject: "Coding",     duration: "1:46",  views: "1.9M", youtubeId: "rrB13utjYV4", desc: "The open-source OS powering most of the internet." },
+    { id: 24, title: "Node.js in 100 Seconds",        creator: "Fireship",        subject: "Coding",     duration: "1:55",  views: "2.6M", youtubeId: "ENrzD9HAZK4", desc: "JavaScript on the server side — fast and scalable." },
   ];
