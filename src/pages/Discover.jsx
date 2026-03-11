@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { SUBJECT_COLORS, VIDEOS } from "../data/data.js";
 import { VideoCard } from "../components/components.jsx";
 import ProgressPage from "./Progress.jsx";
+import SavedPage from "./Saved.jsx";
 
 export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, savedIds, votes, onToggleSave, onVote, watchHistory }) {
   const [search, setSearch] = useState("");
@@ -11,8 +12,7 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
   const tags = ["All", ...Object.keys(SUBJECT_COLORS)];
 
   const filtered = useMemo(() => {
-    const base = view === "saved" ? VIDEOS.filter(v => savedIds.has(v.id)) : VIDEOS;
-    return base.filter((v) => {
+    return VIDEOS.filter((v) => {
       const matchesTag = activeTag === "All" || v.subject === activeTag;
       const q = search.toLowerCase();
       const matchesSearch =
@@ -23,7 +23,7 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
         v.desc.toLowerCase().includes(q);
       return matchesTag && matchesSearch;
     });
-  }, [search, activeTag, view, savedIds]);
+  }, [search, activeTag]);
 
   return (
     <div data-theme={theme} style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "'DM Sans', sans-serif", color: "var(--text)" }}>
@@ -242,22 +242,24 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
 
         {view === "progress" && <ProgressPage watchHistory={watchHistory} />}
 
-        {view !== "progress" && <div style={{ padding: "36px 32px 80px" }}>
+        {view === "saved" && (
+          <SavedPage
+            savedIds={savedIds}
+            votes={votes}
+            onToggleSave={onToggleSave}
+            onVote={onVote}
+            onSelectVideo={onSelectVideo}
+          />
+        )}
+
+        {view === "discover" && <div style={{ padding: "36px 24px 80px", width: "100%", boxSizing: "border-box" }}>
         {/* Hero */}
         <div style={{ marginBottom: 32 }}>
-          {view === "saved" ? (
-            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, fontWeight: 900, lineHeight: 1.1, marginBottom: 8, letterSpacing: "-1px" }}>
-              Your <span style={{ color: "#ff4a7b" }}>saved</span> videos.
-            </h1>
-          ) : (
-            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, fontWeight: 900, lineHeight: 1.1, marginBottom: 8, letterSpacing: "-1px" }}>
-              Learn anything,<br /><span style={{ color: "#4a7bff" }}>one scroll</span> at a time.
-            </h1>
-          )}
+          <h1 className="hero-h1" style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, fontWeight: 900, lineHeight: 1.1, marginBottom: 8, letterSpacing: "-1px" }}>
+            Learn anything,<br /><span style={{ color: "#4a7bff" }}>one scroll</span> at a time.
+          </h1>
           <p style={{ color: "var(--text-muted)", fontSize: 15 }}>
-            {view === "saved"
-              ? `${savedIds.size} saved lesson${savedIds.size !== 1 ? "s" : ""}`
-              : `${VIDEOS.length} curated lessons across ${Object.keys(SUBJECT_COLORS).length} subjects`}
+            {`${VIDEOS.length} curated lessons across ${Object.keys(SUBJECT_COLORS).length} subjects`}
           </p>
         </div>
 
@@ -317,13 +319,9 @@ export default function DiscoverPage({ onSelectVideo, theme, onToggleTheme, save
         <div className="grid-3">
           {filtered.length === 0 && (
             <div className="empty-state">
-              <div style={{ fontSize: 40, marginBottom: 12 }}>{view === "saved" ? "♡" : "🔍"}</div>
-              <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 6 }}>
-                {view === "saved" ? "No saved videos yet" : "No results found"}
-              </div>
-              <div style={{ fontSize: 13 }}>
-                {view === "saved" ? "Heart a video to save it here" : "Try a different search or browse all subjects"}
-              </div>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>🔍</div>
+              <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 6 }}>No results found</div>
+              <div style={{ fontSize: 13 }}>Try a different search or browse all subjects</div>
             </div>
           )}
           {filtered.map((video) => (
